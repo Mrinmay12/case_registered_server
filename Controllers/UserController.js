@@ -1,7 +1,7 @@
 import User from '../Models/UserLogin.js';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
-import { SensSms } from '../Helpers/Sms.js';
+// import { SensSms } from '../Helpers/Sms.js';
 
   function generateId(){
     return Date.now().toString(36)+Math.random().toString(36).substring(2,5)

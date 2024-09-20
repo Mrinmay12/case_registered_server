@@ -9,6 +9,7 @@ const CaseHistory = new Schema({
    case_tittle:{type:String},
    case_date:{type:String},
    Operation_name:{type:String},
+   case_status:{type:Boolean,default:false}
 
 }, {
     timestamps: true

@@ -10,7 +10,8 @@ const HistoryCase = async (
   case_date,
   case_orders,
   user_name,
-  Operation_name
+  operation_name,
+  case_status
 ) => {
   try {
     let data = new Case_History({
@@ -20,7 +21,8 @@ const HistoryCase = async (
       case_date,
       case_orders,
       user_name,
-      Operation_name
+      Operation_name:operation_name,
+      case_status:case_status
     });
     await data.save();
   } catch (err) {}
@@ -261,7 +263,7 @@ export const getCaseHistory = async (req, res) => {
 
 export const UpdateCaseStatus = async (req, res) => {
   try {
-    let { case_id, case_no, case_tittle, case_date, case_orders, user_name } =
+    let { case_id, case_no, case_tittle, case_date, case_orders, user_name ,operation_name} =
       req.body;
 
     let finddata = await Post.findOne({ _id: case_id });
@@ -275,8 +277,11 @@ export const UpdateCaseStatus = async (req, res) => {
       case_tittle,
       case_date,
       case_orders,
-      user_name
+      user_name,
+      operation_name,
+      true
     );
+  
     await finddata.save();
     res.status(200).json({ message: "Update case status" });
   } catch (err) {
@@ -314,6 +319,8 @@ export const Generate_Report = async (req, res) => {
             case:item.case_type,
             start:item.case_date,
             end:item.case_end_date ||'',
+            case_tittle:item.case_tittle,
+            case_no:item.case_no
         }
      })
       res.status(200).json({ success: true, data:all_data });
